@@ -105,6 +105,7 @@ ngAfterViewInit() {
 
 ngOnDestroy() {
    this.subscription.unsubscribe();
+   this.userService.changeUrl(undefined);
 }
 
 

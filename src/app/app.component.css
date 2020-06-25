@@ -336,11 +336,15 @@ nav>div:hover {
     background-color: rgba(0,0,0,0.1);
     font-weight: bold;
     color: white;
-    box-shadow: 0 0 3px 1px yellow;
 }
-nav>div:active {
-    border-style: inset;
+nav>div:active, nav>div.highlight {
+    border-style: solid;
     border-color: rgb(0, 100, 255);
+}
+nav>div.highlight {
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 0 3px 1px white;
 }
 
 nav>div:nth-of-type(n+2){

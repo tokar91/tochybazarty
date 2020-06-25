@@ -123,11 +123,15 @@
 <header>
     <nav>
       <div  (click)='openAdding()'>Dodaj&nbsp;dowcip</div>
-      <div><a routerLink="/jokes/date/desc/6">Dowcipy</a></div>
-      <div *ngIf='this.user==="niezalogowany"'>
+      <div [class.highlight]='this.urlPrefix==="jokes/"'>
+        <a routerLink="/jokes/date/desc/6">Dowcipy</a>
+      </div>
+      <div *ngIf='this.user==="niezalogowany"'
+           [class.highlight]='!this.orderBy'>
         <a routerLink='/account/login'>Zaloguj</a>
       </div>
-      <div *ngIf='this.user!=="niezalogowany"'>
+      <div *ngIf='this.user!=="niezalogowany"' 
+       [class.highlight]='!this.orderBy||this.urlPrefix==="account/fav/"'>
         <a routerLink='/account/fav/date/desc/6'>{{this.user}}</a>
       </div>  
       <div *ngIf='this.user!=="niezalogowany"' (click)='logOut()' 
