@@ -30,6 +30,9 @@ valueOfFirst:any;
 restart:boolean = false;
 lastPage:boolean = true;
 firstPage:boolean = true;
+firstLastPageIn: Subject<[boolean, boolean]> = new Subject();
+firstLastPage$: Observable<[boolean,boolean]> = 
+  this.firstLastPageIn.asObservable();
 orderBy:string;
 direction:any;
 reversedDir:any
@@ -217,7 +220,9 @@ getJokes(orderBy?:string,
                         'Tu nie ma żartów. Nie znaleziono takich dowcipów.');
                      }
                      //console.log('NIE będzie następnej strony');
-                   }
+                   };
+                   this.firstLastPageIn.next(
+                     [this.firstPage, this.lastPage]);
                   }
        ),
     map(this.mapJokesSnapshot),
@@ -292,7 +297,10 @@ getNextJokes():(Observable<{id:string,data:IJoke}[]>|false|null) {
               this.lastPage = true;
               this.nojokesNote('Żarty się skończyły.');
               console.log('żarty zmieniły pozycję lub zostały usunięte');
-          }}
+            }
+            this.firstLastPageIn.next(
+              [this.firstPage, this.lastPage]);
+          }
      ),
      map(this.mapJokesSnapshot),
      map(myColl => {if(myColl.length===this.amount){myColl.pop()};
@@ -363,6 +371,8 @@ getPreviousJokes():(Observable<{id:string,data:IJoke}[]>|false|null) {
             this.nojokesNote('Żarty się skończyły.');
             console.log('żarty zmieniły pozycję lub zostały usunięte');
           }
+          this.firstLastPageIn.next(
+            [this.firstPage, this.lastPage]);
           }
         ),
     map(this.mapJokesSnapshot),

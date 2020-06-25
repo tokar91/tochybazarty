@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes, CanActivate } from "@angular/router";
+import {RouterModule, Routes, ExtraOptions} from "@angular/router";
 import {JokesComponent} from './jokes/jokes.component';
 import {AccountComponent} from './account/account.component';
 
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+
+const routerOptions: ExtraOptions = {
+  useHash: false,
+  anchorScrolling: 'enabled'
+}
 
 const amount:string = '6';
 
@@ -42,7 +47,7 @@ const routes:Routes = [
 @NgModule({
   declarations: [],
   imports: [
-   RouterModule.forRoot(routes)
+   RouterModule.forRoot(routes, routerOptions)
   ],
   exports: [
     RouterModule

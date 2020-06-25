@@ -8,7 +8,6 @@
   height: 2em;
   width: 10em;
   background-color: skyblue;
-  cursor: pointer;
 }
  
 .background, .spearBox, .target-cover, .plane {

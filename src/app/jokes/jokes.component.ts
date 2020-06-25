@@ -30,7 +30,10 @@ export class JokesComponent implements OnInit,AfterViewInit,OnDestroy {
  initialValue:number|string;
  property:string;
  searchValue:string;
- 
+
+ firstPage: boolean = true;  // zrobic firstLastPage subject
+ lastPage: boolean = false;
+
  subscription:Subscription;
 
  jokes:Observable<{id:string, data:IJoke}[]>|null;
@@ -79,6 +82,13 @@ ngOnInit() {
 
   this.userService.changeUrl(this.urlPrefix);
 
+  this.jokesService.firstLastPage$.subscribe(
+    arr => {
+      this.firstPage = arr[0];
+      this.lastPage = arr[1];
+    }
+  )
+
 }
 
 ngAfterViewInit() {
@@ -109,14 +119,22 @@ ngOnDestroy() {
 }
 
 
-next() {
+next(scroll: boolean = false, topPrevNext?: HTMLElement) {
   let x:any = this.jokesService.getNextJokes();
-  if(x){this.jokes=x};
+  if(x){this.jokes=x
+        if(scroll) this.scroll(topPrevNext);
+  };
 }
 
-previous() {
+previous(scroll: boolean = false, topPrevNext?: HTMLElement) {
   let x:any = this.jokesService.getPreviousJokes();
-  if(x){this.jokes=x};
+  if(x){this.jokes=x;
+        if(scroll) this.scroll(topPrevNext);
+  };
+}
+
+private scroll(element: HTMLElement): void {
+  if(element) setTimeout(_=>element.scrollIntoView(),0);
 }
 
 delJoke(id:string, author:string) {

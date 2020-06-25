@@ -1,5 +1,7 @@
-import { Component, OnInit, HostListener} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import { Component, OnInit, HostListener, ChangeDetectorRef}
+  from '@angular/core';
+import {trigger, state, style, transition, animate} 
+  from '@angular/animations';
 import {JokesService} from './jokes.service';
 import {UserService} from './user.service';
 import {ChatService} from './chat.service';
@@ -54,7 +56,8 @@ export class AppComponent implements OnInit{
  constructor(private jokesService:JokesService,
              private userService:UserService,
              private chatService:ChatService,
-             private router:Router){  }
+             private router:Router,
+             private cdRef: ChangeDetectorRef){  }
   
 
  ngOnInit(){
@@ -67,13 +70,15 @@ export class AppComponent implements OnInit{
             this.initialValue=paramsMessage[3];
             this.property=paramsMessage[4];
             this.searchValue=paramsMessage[5];
+            this.cdRef.detectChanges();
             //console.log('APP COMPONENT paramsOut$. ', this.orderBy, this.direction, 
             //  this.amount,this.initialValue,this.property,this.searchValue);
           }
   );
 
   this.userService.urlOut$.subscribe(
-    url => {this.urlPrefix = url}
+    url => {this.urlPrefix = url;
+            this.cdRef.detectChanges()}
   );
   
   let userr1 = window.localStorage.getItem('userr1');

@@ -14,7 +14,7 @@
 }
 .prevNext>div {
   font-size: 3.8vw;
-  cursor:pointer;
+  cursor: pointer;
   width: 38vw; 
   height: 7.6vw;
   margin: 0;
@@ -47,6 +47,18 @@
 .secondPrevNext>div:last-child {
   top:8px;
 }
+
+.prevNext .disabled {
+  opacity: 0.4;
+  cursor: auto;
+}
+.prevNext .disabled:hover {
+  box-shadow: none;
+}
+.prevNext .disabled:active {
+  border-style: ridge;
+}
+
 
 .nojokes {
     display: none;

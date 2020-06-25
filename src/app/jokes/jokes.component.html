@@ -1,8 +1,10 @@
-<div class='prevNext'>
-    <div (click)='previous(); rightBtn.resetButton()'>
+<div #topPrevNext class='prevNext'>
+    <div (click)='previous(); rightBtn.resetButton()'
+         [class.disabled]='this.firstPage'>
       <app-next-jokes-btn #leftBtn></app-next-jokes-btn>
     </div>
-    <div (click)='next(); leftBtn.resetButton()'>
+    <div (click)='next(); leftBtn.resetButton()'
+         [class.disabled]='this.lastPage'>
       <app-next-jokes-btn #rightBtn></app-next-jokes-btn>
     </div>
 </div>
@@ -45,10 +47,12 @@
 </div>
 
 <div class='prevNext secondPrevNext' *ngIf='this.amount>5'>
-  <div (click)='previous(); secRightBtn.resetButton()'>
-    <app-next-jokes-btn #secLeftBtn></app-next-jokes-btn>
+  <div (click)='previous(true, topPrevNext); secRightBtn.resetButton()'
+       [class.disabled]='this.firstPage'>
+      <app-next-jokes-btn #secLeftBtn></app-next-jokes-btn>
   </div>
-  <div (click)='next(); secLeftBtn.resetButton()'>
-    <app-next-jokes-btn #secRightBtn></app-next-jokes-btn>
+  <div (click)='next(true, topPrevNext); secLeftBtn.resetButton()'
+       [class.disabled]='this.lastPage'>
+      <app-next-jokes-btn #secRightBtn></app-next-jokes-btn>
   </div>
 </div>
