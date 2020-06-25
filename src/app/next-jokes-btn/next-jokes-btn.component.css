@@ -1,0 +1,127 @@
+
+:host {
+  font-size: 1em;
+}
+
+.container {
+  position: relative;
+  height: 2em;
+  width: 10em;
+  background-color: skyblue;
+  cursor: pointer;
+}
+ 
+.background, .spearBox, .target-cover, .plane {
+  position: absolute;
+}
+.background, .plane {
+  overflow: hidden;
+}
+.spearBox {
+  width: 40%;
+  transform: translate(calc(5em - 50%), calc(1.2em - 50%));
+}
+.spear {
+  display: block;
+  transform-origin: 100% 50%;
+}
+.target, .target-cover g {
+  transform: translate(210px, -10px);
+}
+.birds {
+  transform: translate(200px); 
+}
+.plane g {
+  transform: translate(1000px);
+}
+ 
+@keyframes getSpearBox {
+  100% {
+    transform: translateX(calc(10em * 0.1 - 100%));
+  }
+}
+@keyframes getSpear {
+  100% {
+    transform: translateY(calc(2em * 0.8 - 50%)) rotate(-45deg);
+  }
+}
+
+@keyframes throwSpearBox {
+  0% {
+    transform: translateX(calc(10em * 0.1 - 100%));
+  }
+  1.5% {
+    transform: translateX(calc(10em * 0.1 - 170%));
+  }
+  1.875% {
+    transform: translateX(calc(10em * 0.1 - 100%));
+  }
+  100% {
+    transform: translateX(calc(10em * 0.99 - 100%));
+  }
+}
+
+@keyframes swipeSpear {
+  0% {
+    transform: translateY(calc(2em * 0.8 - 50%)) rotate(-45deg);
+  }
+  10% {
+    transform: translateY(calc(2em * 0.8 + 600%)) rotate(-45deg);
+  }
+  12.5% {
+    transform: translateY(calc(2em * 0.8 - 50%)) rotate(-45deg);
+  }
+  100% {
+    transform: translateY(calc(2em * 0.1 - 50%)) rotate(-35deg);
+  }
+}
+@keyframes moveSpearUp {
+  0% {
+    transform: translateY(calc(2em * 0.1 - 50%)) rotate(-35deg);
+  }  
+  100% {
+    transform: translateY(calc(2em * -0.8 - 50%)) rotate(-10deg);
+  }
+
+}
+@keyframes moveSpearDown {
+  0% {
+    transform: translateY(calc(2em * -0.8 - 50%)) rotate(-10deg);
+  }  
+  100% {
+    transform: translateY(calc(2em * 0.75 - 50%)) rotate(20deg);
+  }
+}
+
+@keyframes runBirds {
+  0% {
+    transform: translate(200px);
+  }
+  90% {
+    transform: translate(-200%);
+  }
+  100% {
+    transform: translate(-200%);
+  }
+}
+@keyframes runPlane {
+  100% {
+    transform: translate(-400px);
+  }
+}
+
+@keyframes runTarget {
+  1.875% {
+    transform: translate(210px, -10px);
+  }
+  10% {
+    transform: translate(210px, 20px);  
+  }
+  99.3% {
+    transform: translate(210px, 20px); 
+  }
+  100% {
+    transform: translate(calc(200px * 0.85 - 10px), calc(40px * 0.5 - 20px));
+  }
+}
+ 

@@ -1,0 +1,635 @@
+* {
+  box-sizing: border-box;
+}
+#overflow-wrapper, :host>h4 {
+  background: rgb(0,125,50);
+}
+:host>h4 {
+  margin: 0;
+  padding: 0;
+  line-height: 52px;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  letter-spacing: 1px;
+}
+:host>h4>span {
+  border-bottom: ridge 3px rgba(0,0,0,0.6);
+}
+ul {
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+li {
+  position: relative;
+  margin: 2%;
+  padding: 0 0.5em;
+  line-height: 1.2em;
+  border-radius: 4px;
+}
+button {
+  cursor: pointer;
+}
+input:focus, button:focus, button:hover, textarea:focus {
+  outline: none;
+}
+
+
+.options-icon {
+  position: absolute;
+  right: 2%;
+  top: 0;
+  bottom: 0;
+  cursor: default;
+}
+.options-icon:hover {
+  color: white;
+}
+.options-icon:after, .options-container {
+  display: none;
+  position: absolute;
+  z-index: 2;
+}
+.options-icon:after {
+  content: '';
+  border: solid 5px transparent;
+  right: calc(50% - 5px);
+  bottom: -6px;
+  border-bottom-color: rgb(0, 225, 255);
+}
+.options-container {
+  top: calc(100% + 6px);
+  right: -1px;
+  border: solid 2px rgb(0, 225, 255);
+  border-radius: 4px;
+  box-shadow: 1px 2px 3px 2px black, 1px 2px 5px 3px rgb(0, 225, 255);
+}
+.options-container button {
+  display:block;
+  width: 100%;
+  border-color: white;
+  border-radius: 4px;
+  background-color: rgb(100,150,220);
+}
+.options-icon:hover:after, .options-icon:hover .options-container {
+ display: block;
+}
+.options-container button:hover {
+  background-color: rgb(10, 120, 248);
+}
+.options-container button:active {
+  background-color: blue;
+  color: white;
+}
+
+
+
+#overflow-wrapper {
+  height: calc(100% - 52px);
+  overflow-y: auto;
+  direction: rtl;
+}
+#overflow-wrapper>.sleeve {
+  direction: ltr;
+}
+#overflow-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+#overflow-wrapper::-webkit-scrollbar-track {
+  background-color: yellow;
+  border-radius: 4px;
+}
+#overflow-wrapper::-webkit-scrollbar-thumb {
+  background-color: green;
+  border-radius: 4px;
+}
+
+
+#invitations, #search, #conversers, .invAndIgnContainer, .ignContainer {
+  margin: 3px 2px;
+  border: 1px ridge black;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.1);
+}
+.invAndIgnContainer, .ignContainer {
+  margin-top: -5%;
+}
+.invAndIgnContainer {
+  direction: rtl;
+}
+.invAndIgnContainer>* {
+  direction: ltr;
+}
+.invAndIgnContainer::-webkit-scrollbar {
+  width: 7px;
+}
+.invAndIgnContainer::-webkit-scrollbar-track {
+  background-color: yellow;
+  border-radius: 3px;
+}
+.invAndIgnContainer::-webkit-scrollbar-thumb {
+  background-color: teal;
+  border-radius: 3px;
+}
+
+#invitations .invBtn, #invitations .ignoredBtn {
+  display: block;
+  opacity: 0.8;
+  border: none;
+  box-shadow: 0 0 3px 1px black;
+  border-radius: 4px;
+  text-align: center;
+}
+#invitations .invBtn {
+  background-image: linear-gradient(to right, green 15%, yellow 25%, yellow 75%, green 85%);
+  width: 90%;
+  margin: 5%;
+  padding: 0.3em 0.2em;
+  animation: 1s infinite alternate;
+}
+@keyframes alert {
+  from {
+    color: black;
+  }
+  to {
+    color: red;
+    box-shadow: 0 0 5px 3px red;
+  }
+}
+#invitations .ignoredBtn {
+  background-image: linear-gradient(to right, rgb(120, 80, 70) 15%, rgb(120, 120, 60) 25%, rgb(120, 120, 60)75%, rgb(120, 80, 70) 85%);
+  width: 70%;
+  margin: 5% 15%;
+  padding: 0.2em;
+  font-size: 0.8em;
+}
+#invitations .invBtn:hover, #invitations .ignoredBtn:hover {
+  opacity: 1;
+  font-weight: bold;
+}
+#invitations .invBtn:hover {
+  background-image: linear-gradient(to right, green 7%, yellow 11%, yellow 89%, green 93%);
+  color: green;
+}
+#invitations .ignoredBtn:hover { 
+  background-image: linear-gradient(to right, rgb(120, 80, 70) 7%, rgb(120, 120, 60) 11%, rgb(120, 120, 60) 89%, rgb(120, 80, 70) 93%);
+  color: tomato;
+}
+#invitations .fa-arrow-down {
+  color: black;
+  transition: transform 1s;
+}
+#invitations .arrow-left {
+  float: left;
+}
+#invitations .arrow-right {
+  float: right;
+}
+#invitations .invBtn.rotate-arrow>span:first-child {
+  transform: rotate(-180deg);
+}
+#invitations .invBtn.rotate-arrow>span:last-child {
+  transform: rotate(180deg);
+}
+#invitations .ignoredBtn.rotate-arrow>span:first-child {
+  transform: rotate(-180deg);
+}
+#invitations .ignoredBtn.rotate-arrow>span:last-child {
+  transform: rotate(180deg);
+}
+
+#invitations .invList li {
+  background-color: rgba(80, 255, 0, 0.4);
+} 
+#invitations .ignoredList li {
+  background-color: rgba(255, 30, 30, 0.4);
+}
+#invitations p {
+  text-decoration: center;
+  margin: 10% 5%;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+#invitations .ignoredList button {
+  position: absolute;
+  top: 0;
+  right: 0.2em;
+  bottom: 0;
+  background: green;
+  color: white;
+  border: green 1px outset;
+  border-radius: 4px;
+}
+#invitations .ignoredList button:hover {
+  background-color: rgb(0, 175, 0);
+}
+#invitations .ignoredList button:active {
+  border-style: inset;
+}
+
+
+
+#search {
+  position: relative;
+}
+#search label {
+  display: inline-block;
+  margin: 3% 6%;
+  font-size: 0.9em;
+}
+#search>div:first-of-type {
+  position: relative;
+  display: block;
+  margin-bottom: 3%;
+}
+#search>div:first-of-type input {
+  display: inline-block;
+  width: 74%;
+  margin: 0 2%;
+  padding: 0.5em 2em 0.5em 0.5em;
+  border: inset 0.2em grey;
+  border-radius: 4px;
+}
+#search>div:first-of-type input:hover, #search>div:first-of-type input:focus {
+  box-shadow: 0 0 2px 1px white;
+}
+#search>div:first-of-type button:first-of-type {
+  position: absolute;
+  top: 0;
+  right: 24%;
+  bottom: 0;
+  width: 1.5em;
+  margin: 0.5em;
+  padding: 0;
+  text-align: center;
+  font-weight: bold;
+  background-color: rgb(170, 170, 170);
+  border: outset 3px grey;
+  border-radius: 30%;
+}
+#search>div:first-of-type button:first-of-type:hover {
+  border-color: rgb(195, 195, 195);
+  color: white;
+}
+#search>div:first-of-type button:first-of-type:active, 
+#search>div:first-of-type button:last-of-type:active, #searchResults li button:active  {
+  border-style: inset;
+}
+#search>div:first-of-type button:last-of-type, #searchResults li button {
+  color: black;
+  background-color: rgb(100,180,255);
+  border: outset 3px rgb(0, 80, 190);
+}
+
+#search>div:first-of-type button:last-of-type {
+  display: inline-block;
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  margin-right: 2%;
+  border-radius: 4px;
+  font-size: 1em;
+
+}
+#search>div:first-of-type button:last-of-type:hover, #searchResults li button:hover {
+  border-color: rgb(40,150,255);
+  color: white;
+}
+
+
+#searchResults, #search>p {
+  position: absolute;
+  z-index: 3;
+  top: 100%;
+  width: 94%;
+  margin: 0 3%;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 1px 1px 6px 3px black;
+}
+#search>p {
+  padding: 0.5em;
+  background-color: tomato;
+}
+#searchResults {
+  max-height: 300px;
+  overflow: auto;
+  direction: rtl;
+  
+  background-color: green;
+}
+#searchResults::-webkit-scrollbar {
+  width: 6px;
+}
+#searchResults::-webkit-scrollbar-track {
+  background-color: yellow;
+  border-radius: 3px;
+}
+#searchResults::-webkit-scrollbar-thumb {
+  background-color: teal;
+  border-radius: 3px;
+}
+
+#searchResults li {
+  text-align: left;
+  background-color: rgba(255,255,255,0.5);
+  margin: 3% 2%;
+}
+#searchResults li button {
+  position: absolute;
+  top: 0;
+  right: 0.2em;
+  bottom: 0;
+  padding: 0;
+  border-radius: 4px;
+}
+
+
+
+#conversers li {
+  background-color: grey;
+}
+#conversers li:hover {
+  box-shadow: 0 0 2px 1px black, 0 0 4px 3px white;
+}
+#conversers .online {
+  background-color: greenyellow;
+}
+#conversers .unread {
+  animation-name: unread;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#conversers .converser {
+  width: calc(100% - 3em);
+  cursor: pointer;
+}
+#conversers .options-icon:after {
+  border-bottom-color: rgb(120, 255, 30);
+}
+#conversers .options-icon:nth-of-type(2) {
+  right: 1.5em;
+  width: 1.5em;
+  text-align: center;
+}
+
+#conversers .options-icon .accepted {
+  color: rgb(0, 95, 0);
+}
+#conversers .options-icon .waiting {
+  color: rgb(52, 117, 117);
+}
+#conversers .options-icon .rejected {
+  color: red;
+}
+#conversers .options-icon .deleted {
+  color: red;
+}
+#conversers .options-icon .ignored {
+  color: darkred;
+}
+#conversers .options-icon .response-unknown {
+  color: rgb(54, 54, 54)
+}
+#conversers .options-icon:hover span {
+  color: inherit;
+}
+#conversers .options-container {
+  border-color: rgb(120, 255, 30);
+  box-shadow: 1px 2px 2px 2px black, 1px 2px 5px 3px rgb(120, 255, 30);
+} 
+
+#conversers .options-container p, #conversers .options-container button {
+  font-size: 0.8em;
+  color: black;
+  background-color: rgb(100,220,150);
+}
+#conversers .options-container p {
+  margin: 0;
+  padding: 0.5em;
+  border-radius: 4px;
+}
+
+#conversers .options-container button:hover {
+  background-color: rgb(0, 190, 15);
+}
+#conversers .options-container button:active {
+  background-color: green;
+  color: white;
+}
+
+@keyframes unread {
+  to {
+      background-color: orangered;
+  }
+}
+
+
+
+.dialogs-container {
+  display: flex;
+  position: fixed;
+  z-index: -1;
+  left:0px;
+  right: 0px;
+  top: 52px;
+  bottom: 0px;
+  max-width: calc(100vw - 15px);
+  overflow-x: auto;
+}
+.dialogs-container::-webkit-scrollbar {
+  width: 15px;
+  background-color: rgb(170, 255, 220);
+}
+.dialogs-container::-webkit-scrollbar-thumb {
+  background-color: rgb(35, 120, 130);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dialogs-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(50, 180, 200);
+}
+
+.dialog {
+  display:flex;
+  flex-direction: column;
+  box-sizing: content-box;
+  height: calc(100% - 10px);
+  width: calc(100vw - 25px);
+  border: ridge blue 4px;
+  background-color: rgb(30, 30, 30);
+  border-radius: 10px;
+}
+@media screen and (min-width:600px){
+  .dialogs-container {
+    position: absolute;
+    z-index: 3;
+    left:100%;
+    bottom: 0px;
+    top: auto;
+    right: auto;
+  }
+  .dialog {
+    height: 400px;
+    max-height: 80vh;
+    width: 200px;
+  }
+}
+
+.dialog-header {
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 0.5em;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: normal;
+  color: rgb(240, 200, 80);
+  text-shadow: 1px 1px 2px rgb(255, 130, 0);
+  background-color: black;
+  border-bottom: ridge 3px blue;
+} 
+.dialog-header>button, .dialog-footer>button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  line-height: 30px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 20%;
+}
+.dialog-header>button {
+  color: inherit;
+  bottom: 0;
+}
+.dialog-header>button:hover, .dialog-footer>button:hover {
+  background-color: rgba(255,255,255,0.5);
+  font-size: 1.2em;
+}
+.dialog-header>button:hover {
+  color: white;
+}
+
+.dialog-messages {
+  overflow-y: scroll;
+  display:flex;
+  flex-direction: column-reverse;
+  align-items: normal;
+  height: calc(100% - 90px);
+}
+.dialog-messages::-webkit-scrollbar {
+  width: 8px;
+}
+.dialog-messages::-webkit-scrollbar-track {
+  background-color: black;
+}
+.dialog-messages::-webkit-scrollbar-thumb {
+  background-color: rgb(60, 240, 255);;
+  border-radius: 4px;
+}
+
+.dialog .message {
+    font-size: 1em;
+}
+
+.dialog .to-right::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.dialog .to-right p {
+  float: right;
+  clear: right;
+}
+
+.dialog .message-content {
+  display: inline-block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: calc(100% - 0.4em);
+  background-color: rgba(240, 200, 80, 0.3);
+  border-radius: 1em;
+  font-size: 0.8em;
+  padding: 0.4em;
+  margin: 0.2em;
+  color: white;
+}
+
+.dialog .to-right .message-content {
+  background-color: rgba(170, 185, 255, 0.3);
+}
+
+
+.dialog .conv-read {
+  height: 1em;
+}
+.dialog .conv-read>p, .dialog .message .prev-read  {
+  margin: 0;
+  padding: 0 5px;
+  font-size: 10px;
+  color: rgb(170, 185, 255);
+}
+
+
+.dialog-footer {
+  height: 60px;
+  position: relative;
+}
+.dialog-footer>textarea {
+  display: inline-block;
+  width: 80%;
+  resize: none;
+  background:rgba(170, 185, 255, 0.2);
+  color: rgb(60, 240, 255);
+  font-family: inherit;
+  height: 60px;
+  border-radius: 5px 0 0 5px;
+}
+.dialog-footer>textarea:hover {
+  box-shadow: 0 0 2px 1px rgb(60, 240, 255);
+}
+.dialog-footer>textarea::-webkit-scrollbar {
+  width: 6px;
+}
+.dialog-footer>textarea::-webkit-scrollbar-track {
+  background-color: black;
+}
+.dialog-footer>textarea::-webkit-scrollbar-thumb {
+  background-color: blue;
+}
+
+.dialog-footer>button {
+  color: orange;
+  bottom: 40%;
+}
+.dialog-footer>button:hover {
+  color: rgb(255, 255, 100);
+}
+.dialog-footer>.sendByEnter {
+  position: absolute;
+  top: 60%;
+  right:0;
+  bottom: 0;
+  width: 20%;
+  text-align: center;
+  color: orange;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 40%;
+}
+.dialog-footer>.sendByEnter>label {
+  vertical-align: middle;
+}
+.dialog-footer>.sendByEnter>input {
+  cursor: pointer;
+}
+.dialog-footer>.sendByEnter>input:hover {
+  box-shadow: 0 0 3px 2px orange;
+}
+
+

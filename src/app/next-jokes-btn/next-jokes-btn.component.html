@@ -1,0 +1,144 @@
+
+
+<div #container class='container'>
+
+  <svg class='plane' xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 1000 200" 
+    preserveAspectRatio="xMidYMid meet" >
+    <defs>
+      <path style="stroke:black;stroke-width:3px;fill:aqua;"/>
+      <linearGradient id="lgrd2-fire" gradientUnits="objectBoundingBox" 
+        spreadMethod="pad" x1="0%" x2="100%" y1="0%" y2="0%">
+        <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1"/>   
+      </linearGradient>
+      <linearGradient id="lgrd2-black-white" gradientUnits="objectBoundingBox" 
+        spreadMethod="pad" x1="0%" x2="100%" y1="0%" y2="100%">
+        <stop offset="0%" stop-color="black"/>
+        <stop offset="100%" stop-color="white"/>   
+      </linearGradient>
+    </defs>
+    <g #plane style='stroke:black;'>
+      <path d='M57,78 L123,78 L185,35 c11,-6 14,-8 33,-8.5 L208,78 L245,78 
+       c15.5,-0.75 17,-2.5 22,-18 L267,60 c9,-25 7.3,-25 21.5,-25 L289,36 L305,36 
+       L305,63 L319,76 L304,76 L282,106 c-12,13 -16,13.5 -39,14 L218,121 L258,188 
+       c-23,0 -30,-4 -40,-11 L146,121 L53,121 C16,122 3,115 10,107 Z' 
+       style='stroke:green;stroke-width:8px;fill:white;'/>
+  
+      <line x1="57.75" y1="78" x2="246" y2="78" 
+        style="stroke:red;fill:none;stroke-width:5px;"/> 
+      <line x1="274" y1="60" x2="293" y2="71" 
+        style="stroke:orange;fill:none;stroke-width:5px;"/>
+      <path d="M293,71 c10,6 8.75,6.5 26.75,5.5" 
+        style="fill:none;stroke:orange;stroke-width:5px;"/>
+      <line x1="274" y1="59" x2="299" y2="61" 
+        style="stroke:blue;fill:none;stroke-width:2.5px;"/>
+      <line x1="128" y1="105" x2="220" y2="178" 
+        style="stroke:orange;fill:none;stroke-width:5px;"/>
+      <line x1="258" y1="188" x2="205" y2="103" 
+        style="stroke:orange;fill:none;stroke-width:5px;"/>
+      <line x1="122" y1="104" x2="199" y2="108" 
+        style="stroke:green;fill:none;stroke-width:2.5px;"/>
+      <line x1="130" y1="73" x2="185" y2="35" 
+        style="stroke:orange;fill:none;stroke-width:5px;"/>
+      <line x1="218" y1="27" x2="208" y2="76" 
+        style="stroke:orange;fill:none;stroke-width:5px;"/>
+
+      <path d="M10,107 c10,-1 19,-4 25,-7 c6,-2.4  16,-10 19,-12 
+      c2.6,-2 4,-4 4.5,-5.5 c1,-1.4 2,-4 0.25,-5 c-1.5,-0.5 -7,1 -10,2 
+       c-3,1 -8,3 -11,4.75c-3,2 -11,6 -14,9 c-3,2 -2,1 -7,6 c-3,3 -2,2 -6,8Z" 
+       style="fill:aqua;stroke-width:3px;"/>
+      <circle cx="77" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="97" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="117" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="137" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="157" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="177" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="197" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+      <circle cx="217" cy="91" style="fill:aqua;stroke-width:4px;" r="5.4"/>
+ 
+      <polygon style="fill:url(#lgrd2-black-white);stroke-width:3px;" 
+        points="242 158 261 158 261 176 252 176"/>
+      <polygon style="fill:url(#lgrd2-black-white);stroke-width:3px;" 
+        points="285 34 283 36 282 41 282 45 282 47 285 50 324 51 325 36"/>
+      <polygon style="fill:url(#lgrd2-black-white);stroke-width:3px;" 
+        points="214 47 227 47 227 38 216 38"/>
+      <path d="M230,37 c2.5,-1 9,-4 14,-5 c4,-1 23,-4 16,4 c7,3 14,1 3,8 c-2,1.5 
+           -5,3 0,9 c-14,-1 -24,-4 -27,-4 c-3,-1 -5,-1 -7,-2 c-1,-2 -2,-9 0,-10 Z" 
+        style="stroke:none;fill:url(#lgrd2-fire);stroke-width:5px;"/>
+      <path d="M279,154 c18,-2 9,-3 7,5 c28,-2 9,0 12,8 c9,9 9,-2 -3,8 c3,8 -8,1 
+           -6,8 c-10,-2 -11,-6 -18,-5 c-5,-2 -10,-2 -9,-15 c1,-6 9,-8 15,-8 Z" 
+        style="stroke:none;fill:url(#lgrd2-fire);stroke-width:5px;"/>
+      <path d="M329,38 c2,-1 9,-4 28,-5 c4,4 6,0 13,3 c5,4 5,3 7,7 c-6,4 1,4,-10,7 
+           c-12,9 -29,2 -33,1 c-3,-1 -5,-1 -7,-2 c-1,-2 -2,-9 0,-10 Z" 
+        style="stroke:none;fill:url(#lgrd2-fire);stroke-width:5px;"/>
+    </g>
+  </svg>
+  
+  <svg class='background' viewBox='0 0 200 40'>
+   <g #birds class='birds' style='fill:none;stroke:black;'>
+    <path d='M10 10 q6 -4 12 0 q6 -4 12 0'/>
+    <path d='M30 20 q6 -4 12 0 q6 -4 12 0'/>
+    <path d='M60 13 q7 -5 14 0 q7 -5 14 0'/>
+    <path d='M100 6 q4 -3 8 0 q4 -3 8 0'/>
+    <path d='M310 25 q6 -4 12 0 q6 -4 12 0'/>
+    <path d='M330 15 q7 -5 14 0 q7 -5 14 0'/>
+    <path d='M380 20 q5 -3 10 0 q5 -3 10 0'/>
+   </g>
+   
+   <g #target class='target' style='stroke:black;'>
+    <rect x='-220' y='22' width='300' height='30' 
+      style='fill:rgb(30,180,20);stroke:green;'/>
+    <polyline points='0,36 10,15 20,40' style='fill:none;stroke-width:3;'/>
+    <polyline points='10,15 30,37' style='fill:none;stroke-width:3;'/>
+    <ellipse cx='10' cy='20' rx='9.5' ry='19.5' style='fill:brown'/>
+    <ellipse cx='10' cy='20' rx='7' ry='14' style='fill:yellow'/>
+    <ellipse cx='10' cy='20' rx='3' ry='6' style='fill:red'/> 
+   </g>
+  </svg>
+
+  <div #spearBox class='spearBox'>
+    <svg #spear class='spear' viewBox='0 0 107 12'>
+      <defs>
+        <linearGradient id='spearGrad' x1='0%' y1='0%' x2='0%' y2='100%'>
+        <stop offset='0%' style='stop-color:rgb(90,10,0)'/>
+        <stop offset='80%' style='stop-color:grey'/>
+        <stop offset='100%' style='stop-color:rgb(90,10,0)'/>
+        </linearGradient>
+        <radialGradient id='bulletGrad' cx='50%' cy='50%' r='50%' 
+           fx='70%' fy='30%'>
+          <stop offset='0%' style='stop-color:white'/>
+          <stop offset='80%' style='stop-color:black'/>
+        </radialGradient>
+      </defs>  
+      <polygon points='7,4 87,4 87,8 7,8' style='fill:url(#spearGrad)'/>
+      <polygon points='82,6 92,1 107,6 92,11' style='fill:url(#bulletGrad)'/>
+      <polyline points='0,0 9,6 0,12' 
+        style='fill:none;stroke-width:2; stroke:black;'/>
+      <polyline points='4,0 13,6 4,12' 
+        style='fill:none;stroke-width:2; stroke:navy;'/>
+      <polyline points='8,0 17,6 8,12' 
+        style='fill:none;stroke-width:2; stroke:darkred;'/>
+      <polyline points='12,0 21,6 12,12' 
+        style='fill:none;stroke-width:2; stroke:navy;'/>
+      <polyline points='17,1 25,6 17,11' 
+        style='fill:none;stroke-width:2; stroke:green;'/>
+    </svg>
+  </div>
+ 
+  <svg class='target-cover' viewBox='0 0 200 40'>
+    <mask id='mask-target'>
+        <rect x='0' y='0' width='30' height='40' fill='white'/>
+        <polygon points='0,0 17,0 5,40 0,40' fill='black'/>
+    </mask>
+    <g #targetCover mask='url(#mask-target)' style='stroke: black'>
+      <polyline points='0,36 10,15 20,40' style='fill:none;stroke-width:3;'/>
+      <polyline points='10,15 30,37' style='fill:none;stroke-width:3;'/>
+      <ellipse cx='10' cy='20' rx='9.5' ry='19.5' style='fill:brown'/>
+      <ellipse cx='10' cy='20' rx='7' ry='14' style='fill:yellow'/>
+      <ellipse cx='10' cy='20' rx='3' ry='6' style='stroke:black;fill:red'/> 
+    </g>
+  </svg>    
+
+</div>
+

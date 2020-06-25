@@ -1,0 +1,54 @@
+<div class='prevNext'>
+    <div (click)='previous(); rightBtn.resetButton()'>
+      <app-next-jokes-btn #leftBtn></app-next-jokes-btn>
+    </div>
+    <div (click)='next(); leftBtn.resetButton()'>
+      <app-next-jokes-btn #rightBtn></app-next-jokes-btn>
+    </div>
+</div>
+
+<div #nojokes class='nojokes'></div>
+
+<div #container class='container'>
+    <div #jokeElem *ngFor='let joke of jokes|async' class='joke'>
+      <h3 class='title'>{{joke.data.title}}</h3>
+      <button *ngIf='this.user!=="niezalogowany"&&
+                     joke.data.lovers.indexOf(this.user)===-1' 
+              (click)='addToFavourite(joke.id)' 
+               class='toFav far fa-heart'><i class='desc'>Dodaj do ulubionych</i>
+      </button>
+      <button *ngIf='joke.data.lovers.indexOf(this.user)+1' 
+              (click)='removeFromFavourite(joke.id)'
+              class='removeFav fas fa-heart'><i class='desc'>Usuń z ulubionych</i>
+      </button>
+      <button *ngIf='(this.user==="tokar"||this.user===joke.data.user)&&
+         (this.user!=="niezalogowany")' (click)="delJoke(joke.id,joke.data.user)"
+         class='delete fas fa-trash-alt'><i class='desc'>Skasuj dowcip</i>
+      </button> 
+      <p class='content'>{{joke.data.content}}</p>
+      <p class='user'>{{joke.data.user}}</p>
+      <p class='date'>{{joke.data.dateStr}}</p>
+      <div class='starContainer' #starContainer>
+        <span *ngFor='let mark of marks' (click)='markJoke(joke.id, mark, 
+              joke.data.rating, starContainer, joke.data.user)' 
+           [style.background-image]='drawRating(joke.data.rating, mark)' 
+           class='star fas fa-star' ></span> 
+        <div class='mark'>
+          <span class='aveMark'>  Ocena:&nbsp;{{joke.data.rating.toFixed(2)}}
+          </span>
+          <span *ngIf='joke.data.markers[this.user] as yourMark' 
+            class='yourMark'> (Twoja&nbsp;ocena:&nbsp;{{yourMark}})
+          </span>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class='prevNext secondPrevNext' *ngIf='this.amount>5'>
+  <div (click)='previous(); secRightBtn.resetButton()'>
+    <app-next-jokes-btn #secLeftBtn></app-next-jokes-btn>
+  </div>
+  <div (click)='next(); secLeftBtn.resetButton()'>
+    <app-next-jokes-btn #secRightBtn></app-next-jokes-btn>
+  </div>
+</div>

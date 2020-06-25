@@ -1,0 +1,119 @@
+
+<div *ngIf='this.user==="niezalogowany"' class='forms'>
+ 
+ <form class='logInForm'>
+   <h2 >Zaloguj:</h2>
+   <label for='name'>Nazwa użytkownika 
+     <input #name id='name' placeholder='Nazwa..'  minlength="2" maxlength="12"/>
+   </label>
+   <label for='password'>Hasło 
+     <input #password id='password' type='password' 
+             placeholder='Hasło..' minlength="4" maxlength="12"/>
+   </label>
+   <input type='submit'  value='Zaloguj' 
+          (click)='logIn(name.value,password.value)'/>
+   <div *ngIf='formResp.form==="logInForm"' class='formResp' 
+        [@emergeAnimation]='"in"'>
+      {{formResp.message}}
+    </div>
+ </form>
+ 
+ <form class='registerForm' autocomplete="off">
+   <h2>..lub zarejestruj:</h2> 
+   <label class='newName inputInfo' for='creName'>Nazwa użytkownika 
+     <input id='createName' name='name' [style.display]='"none"' type='text'
+       autocomplete="off" />
+     <input #createName id='creName' placeholder='Wymyśl nazwę..' 
+      (focus)='toggleNewNameInfo=true' (blur)='toggleNewNameInfo=false'
+      minlength="2" maxlength="15" autocomplete="nope" />
+     <span *ngIf='toggleNewNameInfo' [@emergeAnimation]="'in'">
+      Nazwa musi mieć od 2 do 15 znaków.</span>
+   </label>
+   <label class='newPass inputInfo' for='password1'>Hasło
+     <input #password1 id='password1' type='password' placeholder='Wymyśl hasło..' 
+      (focus)='toggleNewPassInfo=true' (blur)='toggleNewPassInfo=false' 
+      minlength="4" maxlength="12" />
+     <span *ngIf='toggleNewPassInfo' [@emergeAnimation]="'in'">
+      Hasło musi mieć od 4 do 12 znaków, w tym minimum jedna cyfra i litera.</span>
+   </label>
+   <label for='password2'>Powtórz hasło 
+     <input #password2 id='password2' type='password' placeholder='Powtórz hasło..'  minlength="4" maxlength="12"/>
+   </label>
+   <input type='submit' value='Zarejestruj' 
+       (click)='createAccount(createName.value,password1.value,password2.value)'/>
+   <div *ngIf='formResp.form==="registerForm"' class='formResp' 
+        [@emergeAnimation]='"in"'>{{formResp.message}}
+   </div>
+ </form>
+ 
+</div>
+
+<div *ngIf='this.user!=="niezalogowany"'>
+
+  <div class='buttons'>
+      <button><a [class.disabled]='this.mode==="fav"' 
+                  routerLink='/account/fav/date/desc/6'>Polubione</a>
+      </button>
+      <button><a [class.disabled]='this.mode==="stats"' 
+                 routerLink='/account/stats'>Moje statystyki</a>
+      </button>
+      <button><a [class.disabled]='this.mode==="manage"' 
+                 routerLink='/account/manage'>Zarządzaj kontem</a>
+      </button>
+  </div>
+  <div *ngIf='!this.mode' 
+       [ngStyle]='{"padding.px":16,"font-style":"italic","text-align":"center",
+    "color":"grey","text-shadow":"1px 1px 2px black"}'>
+    <h2>Jesteś zalogowany</h2>
+  </div>
+  <app-jokes *ngIf='this.mode==="fav"' class='fav' [urlPrefix]="'account/fav/'" 
+             [mode]='this.mode'>
+  </app-jokes>
+  <div *ngIf='this.mode==="stats"' class='stats'>
+    <table>
+      <caption>Moje statystyki</caption>
+      <tr><th>Zdobyte punkty</th><td>{{this.rating}}</td></tr>
+      <tr><th>Średnia żartów</th><td>{{this.average}}</td></tr>
+      <tr><th>Najlepsza ocena</th><td>{{this.bestMark}}</td></tr>
+      <tr><th>Liczba żartów z oceną</th><td>{{this.counter}}</td></tr>
+      <tr><th>Liczba żartów ogółem</th><td>{{this.numberOfJokes}}</td></tr>
+    </table>
+    <p>Konto zostało utworzone {{this.registerDate}}.</p>
+  </div>
+  <div *ngIf='this.mode==="manage"' class='manage'>
+        <form #form autocomplete='nope'>
+          <fieldset class='changePass'><legend>Zmienianie hasła</legend>
+            <label>Stare hasło: <input #oldPass type='password' 
+              minlength="4" maxlength="12">
+            </label>
+            <label class='newPass inputInfo'>Nowe hasło: 
+              <input #newPass type='password' (focus)='toggleNewPassInfo=true' 
+                    (blur)='toggleNewPassInfo=false' minlength="4" maxlength="12">
+              <span *ngIf='toggleNewPassInfo' [@emergeAnimation]="'in'">
+                Hasło musi mieć od 4 do 12 znaków, 
+                w tym minimum jedna cyfra i litera.
+              </span>
+            </label>
+            <label>Powtórz nowe hasło: 
+              <input #repNewPass type='password' minlength="4" maxlength="12">
+            </label>
+            <input class='btn btn1' type='button'  value='Zmień hasło' 
+                   (click)='changePassword(oldPass.value, newPass.value, 
+                    repNewPass.value, valResp, form)'/>
+          </fieldset>
+          <div class='valRespCont'>
+            <p #valResp class='valResp'></p>
+          </div>
+          <fieldset class='deleteAcc'><legend>Usuwanie konta</legend>
+            <label>Hasło: 
+              <input #pass type='password' minlength="4" maxlength="12">
+            </label>
+            <input class='btn btn2' type='button' value='Usuń konto' 
+                   (click)='removeAccount(pass.value)'/>
+          </fieldset>
+        </form>
+  </div>
+
+
+
+</div>

@@ -1,0 +1,163 @@
+<h4><span>Rozmowa</span></h4>
+
+<div *ngIf='this.user!=="niezalogowany"' id='overflow-wrapper'>
+ <div class='sleeve'>
+
+  <div id='invitations'>
+   <button class='invBtn' (click)='toggleInvWindow()' 
+           [class.rotate-arrow]='rotateInvArrow' 
+           [style.animationName]='this.unreadInv?"alert":null'>
+     <span class='fas fa-arrow-down arrow-left'></span> Zaproszenia 
+     <span class='fas fa-arrow-down arrow-right'></span>
+   </button>
+   <div #invAndIgnContainer  class='invAndIgnContainer' 
+     [ngStyle]='{"overflow-y":"visible","display":"none","padding-bottom":"0px"}'>
+     <div class='invContainer' (mouseover)='this.turnOffUnreadInv()'>
+       <p *ngIf='!this.invitations.length'>Brak zaproszeń</p>
+       <ul *ngIf='this.invitations.length' class='invList'>
+         <li *ngFor='let user of this.invitations'>
+           {{user}} 
+           <div class='options-icon'>
+             <span class='fas fa-bars'></span>
+             <div class='options-container'>
+                <button (click)='acceptInv(user)'>
+                  <span class='fas fa-user-plus'></span> Dodaj do kontaktów
+                </button>
+                <button (click)='deleteInv(user)'>
+                  <span class='fas fa-trash-alt'></span> Odrzuć zaproszenie
+                </button>
+                <button (click)='ignoreInv(user)'>
+                  <span class='fas fa-minus-circle'></span> Dodaj do ignorowanych
+                </button>
+             </div>
+           </div>
+         </li>
+       </ul>
+     </div>
+    <button (click)='getIgnored()' class='ignoredBtn' 
+            [class.rotate-arrow]='switchIgn'>
+      <span class='fas fa-arrow-down arrow-left'></span> Ignorowani 
+      <span class='fas fa-arrow-down arrow-right'></span>
+    </button>
+    <div *ngIf='switchIgn' class='ignContainer'>
+      <p *ngIf='pleaseWait'>Chwileczkę...</p>
+      <p *ngIf='!ignored?.length&&!pleaseWait'>Brak ignorowanych</p>
+      <ul *ngIf='!pleaseWait' class='ignoredList'>
+        <li *ngFor='let user of ignored'>{{user}} 
+          <button (click)='removeFromIgnored(user)' 
+                  title='Usuwa użytkownika z listy ignorowanych.'>
+            <span class='fas fa-trash-alt'></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+   </div>
+  </div> <!--invitations end-->
+
+  <div id='search'>
+   <label>Zaproś do rozmowy</label>
+   <div>
+     <input #inputName (keydown.enter)='findUsers(inputName)'   
+         (blur)='this.users=[]; inputName.value=""; searchInputVal = undefined; 
+                 this.noResults=false'
+          placeholder='Użytkownik..' minlength="1" maxlength="15"/>
+     <button (click)='inputName.focus()'>&times;</button>
+     <button (mousedown)='findUsers(inputName)' class='fas fa-search'></button>
+   </div> 
+   <p *ngIf='noResults'>Brak wyników</p>
+   <div *ngIf='this.users.length' id='searchResults'>
+      <ul>
+        <li *ngFor='let user of this.users' >
+          {{user}} 
+          <button (mousedown)='openDialog(user, true); this.users=[]; 
+                               inputName.value=""; searchInputVal = undefined;' 
+            title='Wysyła zaproszenie i dodaje do listy rozmówców'>
+            <span class='fas fa-user-plus'></span>
+          </button>
+        </li>
+     </ul>
+   </div>
+  </div> <!-- search end -->
+ 
+  <div *ngIf='conversers' id='conversers'>
+   <ul>
+    <li *ngFor='let converser of conversers' 
+      [class.online]='this.conversersStatus[converser]|async' 
+      [class.unread]='this.unreads[converser]'>
+      <div *ngIf='converser'>
+          <div (click)='openDialog(converser,  false)' class='converser'>
+            {{converser}}
+          </div>
+          <div class='options-icon'>
+            <span [ngClass]="responses&&responses[converser]?
+                     [responses[converser],responsesIcon[responses[converser]]]:
+                     ['response-unknown','fas fa-question']"></span>
+            <div class='options-container'>
+             <p>{{responses&&responses[converser]?
+               responsesDesc[responses[converser]] : 
+               'Informacja o akceptacji zaproszenia przez użytkownika 
+                jest niedostępna.'}}</p> 
+            </div>
+          </div>
+          <div class='options-icon'>
+            <span class='fas fa-bars'></span>
+            <div class='options-container'>
+             <button (click)='deleteDialog(converser)'>
+               <span class='fas fa-trash-alt'></span> Usuń z listy
+             </button>
+             <button (click)='deleteDialog(converser, true)'>
+               <span class='fas fa-minus-circle'></span> Usuń i ignoruj
+              </button>
+            </div>
+          </div>
+      </div>
+    </li>
+   </ul>
+  </div> <!--conversers end-->
+
+  <div *ngIf='this.dialogs.length' class='dialogs-container' #dialogsContainer>
+   <div *ngFor='let dialogObj of this.dialogs'>
+    <div *ngIf='dialogObj.messages as messages' class='dialog'>
+      <h4 class='dialog-header'>{{dialogObj.converser}} 
+        <button (click)='closeDialog(dialogObj)' class='close-btn fas fa-times'>
+        </button>
+      </h4>
+      <div class='dialog-messages'>
+        <div class='conv-read {{dialogObj.converser}}'>
+          <p *ngIf='this.showRead[dialogObj.converser]&&
+                    this.convRead[dialogObj.converser]'>
+                    Odczytano {{this.convRead[dialogObj.converser]}}</p>
+        </div>
+        <div *ngFor='let message of messages; let i = index;' class='message' 
+             [class.to-right]='message.user===this.user'>
+          <p *ngIf='!this.convRead[dialogObj.converser] && 
+                    dialogObj.lastPrevReadIndex === i' class='prev-read'>
+             Odczytano {{message.prevRead}}</p>
+          <p title='{{message.date}} {{message.time}}' class='message-content'>
+            {{message.content}}</p>
+        </div>
+      </div>
+      <div class='dialog-footer'>
+        <textarea  #nextMessage 
+         (focus)='updateCurrentConverser(dialogObj.converser)'
+         (keydown.enter)='this.sendByEnter?
+               sendMessage(nextMessage, dialogObj.converser, messages[0]?.user, 
+               messages.slice(20), $event):true'
+         [(ngModel)]='this.tempMessages[dialogObj.converser]' maxlength="300" 
+         [realAutofocus]>
+        </textarea>
+        <button (click)='sendMessage(nextMessage, dialogObj.converser, messages[0]?.user, messages.slice(20))' 
+          class='fas fa-paper-plane'>
+        </button> 
+        <div class='sendByEnter'><label>&crarr;</label>
+          <input  [(ngModel)]='this.sendByEnter' 
+                  (change)='nextMessage.focus();this.saveSetting();' 
+                  type='checkbox' title='Wysyłaj za pomocą przycisku Enter'/>
+        </div>
+      </div>
+    </div>
+   </div>
+  </div> <!-- dialogs-container end -->
+
+ </div>
+</div>

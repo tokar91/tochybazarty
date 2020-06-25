@@ -1,0 +1,211 @@
+
+.prevNext {
+  position:relative;
+  z-index: 3;
+  margin: 1%;
+  padding: 15px 15px 8px;
+  border-radius:  20px 20px 5px 5px;
+  background-color: rgba(0,0,0,0.2);
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.7), 0 0 3px 2px white;
+}
+.secondPrevNext {
+  border-radius: 5px 5px 20px 20px;
+  padding: 8px 15px 15px;
+}
+.prevNext>div {
+  font-size: 3.8vw;
+  cursor:pointer;
+  width: 38vw; 
+  height: 7.6vw;
+  margin: 0;
+  border: ridge 5px rgb(0,255,0);
+}
+.prevNext>div:hover {
+  box-shadow: 0 0 4px 2px white;
+}
+.prevNext>div:active {
+  border-style: groove;
+}
+
+@media screen and (min-width:950px) {
+  .prevNext>div {
+      font-size: 2.5vw;
+      width: 25vw;
+      height: 5vw;
+  }
+}
+
+.prevNext>div:first-child {
+    transform: rotateY(180deg);
+}
+.prevNext>div:last-child {
+  position: absolute;
+  right:15px;
+  top:15px;
+  bottom:0; 
+}
+.secondPrevNext>div:last-child {
+  top:8px;
+}
+
+.nojokes {
+    display: none;
+    text-align: center;
+    margin: 40px 30px;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 24px;
+    font-style: italic;
+    color: #B00;
+    background-color: #FDD;
+    border: solid 3px #B00;
+}
+@keyframes showNoJokes {
+  from {opacity: 0; transform: translateY(-30px)}
+  to {opacity: 1; transform: none}
+}
+
+.container * {
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  align-items:  start;
+  align-content: start;
+  padding: 0;
+  margin: 15px 0;
+  min-height: 500px;
+}
+
+.joke {
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 0 4px black;
+  background-color: rgb(210,255,220);
+  min-width: 220px;
+  padding: 15px;
+  margin: 1%;
+  font-family: 'Times New Roman', Times, serif;
+}
+  
+.title {
+  margin: 0 30px 6px 0;
+  font-size: 1.25em;
+}
+button {
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+  opacity: 0.75;
+}
+button:hover {
+  opacity: 1;
+}  
+.toFav, .removeFav {
+  top: 8px;
+  right: 8px;
+  font-size: 30px;
+  width:40px;
+  height:40px;
+  color: rgb(0,190,0);
+}
+.toFav:hover, .removeFav:hover {
+  font-size: 38px;
+}
+.toFav:active, .removeFav:active {
+  color: rgb(0,255,0);
+  text-shadow: 0 0 4px green;
+}
+.delete {
+  bottom: 8px;
+  right: 10px;
+  font-size: 20px;
+  height: 30px;
+  width: 30px;
+}
+.delete:hover {
+  font-size: 28px;
+}
+.delete:active {
+  color: white;
+  text-shadow: 0 0 4px black;
+}
+
+.desc {
+  position: absolute;
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: solid 1px darkgreen;
+  border-radius: 4px;
+  box-shadow: 0 0 2px black;
+  text-shadow: none;
+  font-size: 16px;
+  background-color: lightgreen;
+  color: darkgreen;
+  padding: 4px;
+}
+button:hover i {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s 1s linear;
+  font-weight: normal;
+}
+button i:hover {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.content {
+  max-height: 500px;
+  overflow: auto;
+  margin: 10px 0 0;
+  color: rgb(0,0,130);
+  white-space: pre-line;
+}
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+.content::-webkit-scrollbar-track {
+  background: rgb(0,110,0);
+  border-radius: 4px;
+}
+.content::-webkit-scrollbar-thumb {
+  background: rgb(0,190,0);
+  border-radius: 4px;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background: rgb(0,210,100);
+}
+
+.user, .date  {
+  display: inline-block;
+  margin: 10px 20px 0 0;
+  
+  font-style: italic;
+  color: darkgreen;
+}
+
+.starContainer {
+  margin: 10px 0 0 0;
+}
+.starContainer .star {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  cursor: pointer;
+}
+.mark {
+  display: inline-block;
+}
+.starContainer .aveMark, .starContainer .yourMark {
+  font-size: 0.8em;
+  white-space: pre;
+}

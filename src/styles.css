@@ -1,1 +1,145 @@
-/* You can add global styles to this file, and also import other style files */
+
+body {
+  padding: 0;
+  margin:0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(170, 255, 220);
+}
+body::-webkit-scrollbar {
+  width: 15px;
+  background-color: transparent;
+  cursor: pointer;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(35, 120, 130);
+  border-radius: 5px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(50, 180, 200);
+}
+
+
+
+#addJokeBG {
+  position: fixed;
+  z-index:5;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: rgb(50,50,50,0.7);
+  backdrop-filter: blur(2px);
+}
+
+
+#addJokeForm * {
+  box-sizing: border-box;
+}
+
+#addJokeForm {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 6;
+  width: 30%;
+  min-width: 300px;
+  border: ridge rgb(0,255,0) 3px;
+  border-radius: 15px;
+  padding: 15px;  
+  background: rgb(200,255,200);
+  animation-name: showtime;
+  animation-duration: 1.5s;
+}
+#addJokeForm span, #addJokeForm input[type=reset], #addJokeForm input[type=button]{
+  cursor: pointer;
+  user-select: none;
+}
+#addJokeForm span {
+  float: right;
+  width: 30px;
+  line-height: 30px;
+  font-size: 100%;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+  background-color: green;
+  color: rgb(150,150,150);
+}
+
+#addJokeForm span:hover, #addJokeForm input[type=reset]:hover, #addJokeForm input[type=button]:hover {
+  color: black;
+  box-shadow: 0px 0px 3px 1px rgb(0,0,0,0.5);
+}
+#addJokeForm span:active, #addJokeForm input[type=reset]:active, #addJokeForm input[type=button]:active {
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 0px 3px 2px rgb(255,255,255,0.5);
+}
+
+#addJokeForm h2 {
+  margin: 0 0 15px 0;
+  color: green;
+}
+#addJokeForm label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 1.2rem;
+}
+
+#addJokeForm input:first-of-type, #addJokeForm textarea {
+  display: block;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 3px inset green;
+  padding: 8px;
+  font-size: 0.9rem;
+}
+@keyframes missingContent {
+  from {border-color: green;}
+  to {border-color: red;}
+}
+#addJokeForm input:first-of-type:focus, #addJokeForm textarea:focus {
+  outline: none;
+}
+#addJokeForm textarea {
+  resize: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+#addJokeForm input[type=reset], #addJokeForm input[type=button] {
+  display: inline-block;
+  width: 20%;
+  min-width: 100px;
+  margin-top: 10px;
+  padding: 6px;
+  border: solid white 3px;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: white;
+}
+#addJokeForm input[type=reset]:focus, #addJokeForm input[type=button]:focus {
+  outline: none;
+}
+#addJokeForm input[type=reset]{
+  background-color: grey;
+}
+#addJokeForm input[type=button] {
+  float: right;
+  background-color: green;
+}
+
+@keyframes showtime {
+  from {
+    opacity:0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+

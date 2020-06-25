@@ -1,20 +1,213 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div #chatEl id='chat' class="chat" >
+  <app-chat [user]='this.user' (unreadMessOrInv)='this.unreadMessOrInv=$event'>
+  </app-chat>
+  <button #chatBtn id='chatBtn' [style.right.px]='-50' 
+      [style.animationName]='this.unreadMessOrInv&&chatBtn.style.transform!==
+      "rotate(-180deg)"?"alert":null' 
+      (click)='switchHiding(chatEl, chatBtn, "left");
+      this.unreadMessOrInv=false'><span class='fas fa-arrow-right'></span></button>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<div #filterEl id='filter' class="filter">
+  <h4><span>Filtr</span></h4>
+  <div class='overflow-wrapper'>
+    <div class='amount'>
+       <label for='range'>Ilość na stronie:</label>
+       <output>{{this.amount}}</output>
+       <input #amountInput value='{{this.amount}}'  step=3 
+         [attr.disabled]='this.orderBy?null:"disabled"'
+       type='range' min=3 max=30  (input)='this.amount=+amountInput.value'
+       (change)='filter(true, this.orderBy,this.direction,+amountInput.value,
+        this.initialValue,this.property,this.searchValue)'/>
+    </div>
+    <div class='ordDir'>
+       <button class='newest' [class.selected]='this.orderBy==="date"&&
+         this.direction==="desc"&&!this.initialValue' 
+           (click)='filter(false,"date","desc",this.amount,"",this.property,
+            this.searchValue)'>
+           Najnowsze
+       </button>
+       <button class='oldest' [class.selected]='this.orderBy==="date"&&
+          this.direction==="asc"&&!this.initialValue'
+          (click)='filter(false,"date","asc",this.amount,"",this.property,
+                   this.searchValue)'>
+           Najstarsze
+       </button>
+       <hr/>
+       <button class='best' [class.selected]='this.orderBy==="rating"&&
+          this.direction==="desc"&&!this.initialValue' 
+          (click)='filter(false,"rating","desc",this.amount,"",this.property,
+                   this.searchValue)'>
+           Najlepsze
+       </button>
+       <button class='worst' [class.selected]='this.orderBy==="rating"&&
+           this.direction==="asc"&&!this.initialValue' 
+           (click)='filter(false,"rating","asc",this.amount,"",this.property,
+                   this.searchValue)'>
+           Najsuchsze
+       </button>
+    </div>
+    <div class='propVal'>
+       <label for='searchJoke'>Wyszukaj</label>
+       <div>
+         <input id='searchJoke' #searchJoke value='{{this.searchValue}}' 
+           [attr.disabled]='this.orderBy?null:"disabled"'
+           placeholder='Szukana fraza..' minlength='1' maxlength='50' 
+           (keydown.enter)='searchFieldChange(searchJoke.value)'/>
+         <button class='deleteBtn' (click)='searchJoke.value="";
+          filter(false,this.orderBy,this.direction,this.amount,this.initialValue,
+          this.property,searchJoke.value)'>&times;
+        </button>
+       </div>
+       <button [class.selected]='this.property==="title"' 
+         (click)='filter(false,this.orderBy,this.direction,this.amount,
+         this.initialValue,"title",searchJoke.value)'>Tytuł
+       </button>
+       <button [class.selected]='this.property==="user"' 
+         (click)='filter(false,this.orderBy,this.direction,this.amount,
+         this.initialValue,"user",searchJoke.value)'>Nick
+       </button>
+       <div *ngIf='this.inputFeedback.input==="search"' class='inputFeedback' 
+         [@displayAnim]='"displayed"'>{{this.inputFeedback.feedback}}
+       </div>
+    </div>
+    <div class='initVal'>
+      <div class='initValDate'>
+        <label for='date'>Data</label>
+        <input type='date' id='date' #date min='2019-08-15' 
+          value='{{this.ifCreateNewInpDateVal()}}' 
+          [attr.disabled]='this.orderBy?null:"disabled"' 
+          (keydown.enter)='dateFieldChange(date.value)'/>
+        <button [class.selected]='this.orderBy==="date"&&this.direction===
+          "asc"&&this.initialValue' (click)='filter(false,"date","asc",this.amount,
+           parseInpDate(date.value, "asc"),this.property,this.searchValue)'>
+           i nowsze
+        </button>
+        <button [class.selected]='this.orderBy==="date"&&this.direction===
+          "desc"&&this.initialValue' (click)='filter(false,"date","desc",
+          this.amount,parseInpDate(date.value, "desc"),this.property,
+          this.searchValue)'>
+          i starsze
+        </button>
+        <div *ngIf='this.inputFeedback.input==="date"' class='inputFeedback' 
+          [@displayAnim]='"displayed"'>{{this.inputFeedback.feedback}}
+        </div>
+      </div>
+      <hr/>
+      <div class='initValRating'>
+        <label for='rating'>Ocena</label>
+        <input type='number' id='rating' #rating min='1' max='5' maxlength="1" 
+          value='{{ifCreateNewInpRatingValue()}}'[attr.disabled]='this.orderBy?
+          null:"disabled"' (keydown.enter)='ratingFieldChange(+rating.value)'/>
+        <button [class.selected]='this.orderBy==="rating"&&this.direction===
+          "asc"&&this.initialValue' (click)='filter(false,"rating","asc",
+          this.amount,+rating.value,this.property,this.searchValue)'>
+          i lepsze
+        </button>
+        <button [class.selected]='this.orderBy==="rating"&&this.direction===
+          "desc"&&this.initialValue' (click)='filter(false,"rating","desc",
+          this.amount,+rating.value,this.property,this.searchValue)'>
+          i gorsze
+        </button>
+        <div *ngIf='this.inputFeedback.input==="rating"' class='inputFeedback' 
+          [@displayAnim]='"displayed"'>{{this.inputFeedback.feedback}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <button #filterBtn id='filterBtn' [style.left.px]='-50' 
+       (click)='switchHiding(filterEl, filterBtn, "right")'><span 
+       class='fas fa-arrow-left'></span></button>
+</div>
+
+<header>
+    <nav>
+      <div  (click)='openAdding()'>Dodaj&nbsp;dowcip</div>
+      <div><a routerLink="/jokes/date/desc/6">Dowcipy</a></div>
+      <div *ngIf='this.user==="niezalogowany"'>
+        <a routerLink='/account/login'>Zaloguj</a>
+      </div>
+      <div *ngIf='this.user!=="niezalogowany"'>
+        <a routerLink='/account/fav/date/desc/6'>{{this.user}}</a>
+      </div>  
+      <div *ngIf='this.user!=="niezalogowany"' (click)='logOut()' 
+        class='navLast'>Wyloguj
+      </div>
+    </nav>
+</header>
+
+<div class='topTables'>
+    <div class='topTable ratings'>
+      <table #ratings >
+        <caption>Punkty za całokształt</caption>
+        <tr *ngFor='let obj of topRatings; let i = index;' 
+            [style.display]='i>2&&!this.topRatToggle?"none":"table-row"'>
+          <td>{{i+1}}</td><td> {{obj.user}} </td><td> {{obj.rating}} </td>
+        </tr>
+      </table>
+      <button (click)='this.topRatToggle = this.topRatToggle? false:true;' 
+         [style.transform]='this.topRatToggle? "rotateX(180deg)" : "" ' 
+         class='switchTable'>
+        <svg class='btn-arrow' width='22px' height='60px'>
+          <path d='M5 0 L7 20 L0 20 L11 60 L22 20 L15 20 L17 0 Z'/>
+        </svg>
+      </button>
+    </div>
+    <div class='topTable averages'>
+      <table #averages >
+        <caption>Średni poziom żartów</caption>
+        <tr *ngFor='let obj of topAverages; let i = index;' 
+            [style.display]='i>2&&!this.topAveToggle?"none":"table-row"'>
+          <td>{{i+1}}</td><td> {{obj.user}} </td><td> {{obj.average}} </td>
+        </tr>
+      </table>
+      <button (click)='this.topAveToggle = this.topAveToggle? false:true' 
+         [style.transform]='this.topAveToggle? "rotateX(180deg)" : "" ' 
+         class='switchTable'>
+        <svg class='btn-arrow' width='22px' height='60px'>
+          <path d='M5 0 L7 20 L0 20 L11 60 L22 20 L15 20 L17 0 Z'/>
+        </svg>
+      </button>
+    </div>
+    <div class='topTable bestMarks'>
+      <table #bestMarks>
+        <caption>Najśmieszniejszy żart</caption>
+        <tr *ngFor='let obj of topBestMarks; let i = index;' 
+            [style.display]='i>2&&!this.topBestToggle?"none":"table-row"'>
+          <td>{{i+1}}</td><td> {{obj.user}} </td><td> {{obj.bestMark}} </td>
+        </tr>
+      </table>
+      <button (click)='this.topBestToggle = this.topBestToggle? false:true;' 
+        [style.transform]='this.topBestToggle? "rotateX(180deg)" : "" ' 
+        class='switchTable'>
+        <svg class='btn-arrow' width='22px' height='60px'>
+          <path d='M5 0 L7 20 L0 20 L11 60 L22 20 L15 20 L17 0 Z'/>
+        </svg>
+      </button>
+    </div>
+    <button (click)='this.topAveToggle = !this.topRatToggle; 
+       this.topBestToggle = !this.topRatToggle; 
+       this.topRatToggle = !this.topRatToggle;' 
+       [style.transform]='this.topRatToggle? "rotateX(180deg)" : "" ' 
+       class='switchTopTables'>
+      <svg class='btn-arrow-small' width='22px' height='20px'>
+        <path d='M5 0 L7 8 L0 8 L11 20 L22 8 L15 8 L17 0 Z'/>
+      </svg>
+      <svg class='btn-arrow-small' width='22px' height='20px'>
+        <path d='M5 0 L7 8 L0 8 L11 20 L22 8 L15 8 L17 0 Z'/>
+      </svg>
+      <svg class='btn-arrow-small' width='22px' height='20px'>
+        <path d='M5 0 L7 8 L0 8 L11 20 L22 8 L15 8 L17 0 Z'/>
+      </svg>
+      <svg class='btn-arrow-small' width='22px' height='20px'>
+        <path d='M5 0 L7 8 L0 8 L11 20 L22 8 L15 8 L17 0 Z'/>
+      </svg>
+      <svg class='btn-arrow-small' width='22px' height='20px'>
+        <path d='M5 0 L7 8 L0 8 L11 20 L22 8 L15 8 L17 0 Z'/>
+      </svg>
+    </button>
+</div> 
+
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
